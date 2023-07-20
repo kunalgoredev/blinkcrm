@@ -25,6 +25,7 @@ app_name = 'website_app'
 
 urlpatterns = [
     path('', WebsiteListView.as_view(), name='website_list'),
+    path('create_website', WebsiteCreateView.as_view(), name='create_website'),
     path('<pk>/', WebsiteUpdateView.as_view(), name='website_detail'),
    
 ]

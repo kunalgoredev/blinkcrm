@@ -32,6 +32,30 @@ class Publishing(models.Model):
         return self.publishing_frequency
 
 
+class Company(models.Model):
+    company_name = models.CharField(max_length=100, blank=True, null=True)
+    company_address = models.CharField(max_length=100, blank=True, null=True)
+    company_contact = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return self.company_name
+
+class WebsiteBusinessModel(models.Model):
+    business_model = models.CharField(max_length=100, blank=True, null=True)
+    business_company = models.ForeignKey(Company, on_delete=models.PROTECT, blank=True, null=True)
+
+    def __str__(self):
+        return self.business_model
+    
+
+class WebsiteBusinesstype(models.Model):
+    business_name = models.CharField(max_length=100, blank=True, null=True)
+    model_type = models.ForeignKey(WebsiteBusinessModel, on_delete=models.PROTECT, blank=True, null=True)
+
+    def __str__(self):
+        return self.business_name
+
+
 
 class Website(BaseModel):
 
@@ -54,6 +78,8 @@ class Website(BaseModel):
         ('4/Week', '4/Week'),
     )
 
+
+
     website_name = models.CharField(max_length=50, null=True, blank=True)
     website_url = models.URLField(max_length=100, null=True, blank=True)
     admin_website = models.CharField(max_length=100, null=True, blank=True)
@@ -66,6 +92,7 @@ class Website(BaseModel):
     domain_provider = models.ForeignKey(DomainProviders, null=True, blank=True, on_delete=models.PROTECT) 
     hosting_provider = models.ForeignKey(HostingProviders, null=True, blank=True, on_delete=models.PROTECT) 
     publishing_frequency = models.CharField(max_length=20, choices=FREQUENCY_PUBLISHING, default='OnceDaily')
+    #website_business = models.ForeignKey(WebsiteBusinessModel, null=True, blank=True, on_delete=models.PROTECT)
     
 
     def get_absolute_url(self):

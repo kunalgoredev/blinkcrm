@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, UpdateView, CreateView
 from . models import *
+from.forms import *
 # Create your views here.
 
 
@@ -26,13 +27,15 @@ class WebsiteListView(ListView):
 
 class WebsiteCreateView(CreateView):
     model = Website
-    fields = '__all__'
-    template_name = 'core_app/create_site.html'
+    #fields = '__all__'
+    form_class = createWebsiteForm
+    template_name = 'website_app/create_website.html'
+
     
     
     
     def get_success_url(self):
-        return reverse('core_app:update_site')
+        return self.object.get_absolute_url()
     
 
 

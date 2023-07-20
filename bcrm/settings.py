@@ -44,6 +44,10 @@ INSTALLED_APPS = [
     'user_app',
     'website_app',
     'yt_app',
+    'writers_app',
+    'clinic_app',
+    
+    
     
 
 
