@@ -1,27 +1,62 @@
 from django import forms
+from django_select2.cache import cache
+from django_select2.forms import (
+    HeavySelect2MultipleWidget, HeavySelect2Widget, ModelSelect2TagWidget,
+    ModelSelect2Widget, Select2Widget
+)
 from .models import *
-from django.db.models import Q
+
+
+
 
 class CreatePatientForm(forms.ModelForm):
 
-    # qsbtype = WebsiteBusinesstype.objects.filter(
-    #     WebsiteBusinessModel__company=business_model,
-    # ) 
-    clinic_qs = Clinic.objects.all()
-    clinic = forms.ModelChoiceField(queryset=clinic_qs)
-    c = clinic.get
+    provider = forms.ModelChoiceField(
+        queryset=Provider.objects.all(),
+        label="Provider",
+        widget=ModelSelect2Widget(
+            model=Provider,
+            search_fields=['provider_name__icontains'],
+        )
+    )
 
-    provider_qs = Provider.objects.filter(
-        works_for_clinic_id=clinic.)
+    nurse = forms.ModelChoiceField(
+        queryset=Nurse.objects.all(),
+        label="Nurse",
+        widget=ModelSelect2Widget(
+            model=Nurse,
+            search_fields=['nurse_name__icontains'],
+            dependent_fields={'provider': 'works_for_provider'},
+            max_results=20,
+            
+        )
+    )
     
-
-    provider = forms.ModelChoiceField(queryset=Provider.objects.none())
-
-
-
-
     class Meta:
         model = Patient
         fields = '__all__'
 
+# class OLDCreatePatientForm(forms.ModelForm):
+
+    
+     
+#     # provider = forms.ModelChoiceField(queryset=Provider.objects.all(),
+#     #                                  widget=forms.Select(attrs={"hx-get": "load_nurses/", "hx-target": "#id_nurse"}))
+#     # looked_by_nurse = forms.ModelChoiceField(queryset=Nurse.objects.none(), to_field_name='looked_by_nurse')
+
+
+#     # def __init__(self, *args, **kwargs):
+#     #     super().__init__(*args, **kwargs)
+
+#     #     if "provider" in self.data:
+#     #         id_provider = int(self.data.get("provider"))
+#     #         self.fields["looked_by_nurse"].queryset = Nurse.objects.filter(works_for_provider=id_provider)   
+          
+
+#     class Meta:
+#         model = Patient
+#         fields = '__all__'
+
         
+       
+    

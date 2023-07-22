@@ -25,18 +25,24 @@ SECRET_KEY = 'django-insecure-hgevwqk8d!m%))4@fb^#wrjzag(7q_en8)*_!&qs+cm56a63(%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1:6379',
+    'localhost',
+]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+
+    'django_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
 
     # internal apps
 
@@ -46,14 +52,16 @@ INSTALLED_APPS = [
     'yt_app',
     'writers_app',
     'clinic_app',
+    'article_app',
+    'chain',
     
     
-    
-
-
     'crispy_forms',
     'crispy_bootstrap5',
-    'django_select2',
+    'simple_history',
+    'auditlog',
+    'debug_toolbar',
+    
 
 
 
@@ -63,6 +71,27 @@ INSTALLED_APPS = [
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": "redis://127.0.0.1:6379/1",
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#         }
+#     },
+#     'select2': {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": "redis://127.0.0.1:6379/2",
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#         }
+#     }
+# }
+
+# # Set the cache backend to select2
+# SELECT2_CACHE_BACKEND = 'select2'
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -71,6 +100,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    'auditlog.middleware.AuditlogMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+
+    
 ]
 
 ROOT_URLCONF = 'bcrm.urls'

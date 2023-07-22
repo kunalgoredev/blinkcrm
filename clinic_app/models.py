@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Clinic(models.Model):
@@ -20,6 +21,8 @@ class Provider(models.Model):
         return self.provider_name
     
 
+    
+
 class Nurse(models.Model):
     nurse_name = models.CharField(max_length=100, null=True, blank=True)
     nurse_edu = models.CharField(max_length=100, null=True, blank=True)
@@ -35,6 +38,9 @@ class Patient(models.Model):
     patient_edu = models.CharField(max_length=100, null=True, blank=True)
     patient_address = models.CharField(max_length=100, null=True, blank=True)
     looked_by_nurse = models.ForeignKey(Nurse, on_delete=models.PROTECT, blank=True, null=True)
+
+    def get_absolute_url(self):
+        return reverse('clinic_app:create_patient')
     
 
     def __str__(self):

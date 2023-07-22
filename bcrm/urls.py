@@ -16,10 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from clinic_app.views import *
 
 urlpatterns = [
-    path('', include('core_app.urls' )),
+    path('', include('chain.urls' )),
     path('website/', include('website_app.urls' )),
+    path('user/', include('user_app.urls' )),
+    path('article/', include('article_app.urls' )),
     path('clinic/', include('clinic_app.urls' )),
     path('admin/', admin.site.urls),
+    path('select2/', include("django_select2.urls")),
+    path('create_patient/', PatientCreateView.as_view(), name='create_patient'),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]

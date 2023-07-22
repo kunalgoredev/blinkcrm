@@ -1,33 +1,38 @@
 {% extends 'base_main.html' %}   {% load crispy_forms_tags %} 
 {% block page_content %}
-  
+
+
+
+
     <form action="" method="post" enctype="multipart/form-data">
     
 
       <div class="form-group">
         {% csrf_token %}
+       
+       
+        {{ form.media.css }}
+       
 
-        {{form | crispy}}
+        {{form.provider|as_crispy_field}}
+        {{form.nurse|as_crispy_field}}
+        {{form.patient_name|as_crispy_field}}
 
-      
+       
+
+
+        <button  class="btn btn-primary">Update</button> 
 
         
     </div>
-    <button  class="btn btn-primary">Update</button> 
+   
       
     </form>
 
-
-
-    <script>
-
-      dselect(document.querySelector('#id_domain_provider') && document.querySelector('#id_hosting_provider'), {
-  
-          search: true
-      });
-  
-
     
-  </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    {{ form.media.js }}
   
   {% endblock page_content %}
