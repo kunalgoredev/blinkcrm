@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, UpdateView, CreateView
 from . models import *
-
+from django.contrib import messages
 # Create your views here.
 
 
@@ -11,6 +11,9 @@ class ArticleCreateView(CreateView):
     # form_class = createarticleForm
     template_name = 'article_app/create_article.html'
 
+    def form_valid(self, form):
+        messages.info(self.request, 'Article created successfully')
+        return super().form_valid(form)
     
     
     
@@ -32,3 +35,7 @@ class ArticleUpdateView(UpdateView):
 
     def get_success_url(self):
         return self.object.get_absolute_url()
+    
+    def form_valid(self, form):
+        messages.info(self.request, 'Article Updated successfully')
+        return super().form_valid(form)

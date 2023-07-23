@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     # internal apps
 
     'core_app',
-    'user_app',
+    'account_app',
     'website_app',
     'yt_app',
     'writers_app',
@@ -61,6 +61,8 @@ INSTALLED_APPS = [
     'simple_history',
     'auditlog',
     'debug_toolbar',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
     
 
 
@@ -98,6 +100,9 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+
+    'django_otp.middleware.OTPMiddleware',
+
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
@@ -163,7 +168,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Dubai'
 
 USE_I18N = True
 
@@ -187,3 +192,5 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = BASE_DIR / "uploads"
 MEDIA_URL = "/user_media/"
+
+LOGOUT_REDIRECT_URL = "account_app:login"

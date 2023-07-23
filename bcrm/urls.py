@@ -17,14 +17,31 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from clinic_app.views import *
+from django.contrib.auth.models import User
+
+from django_otp.admin import OTPAdminSite
+from django_otp.plugins.otp_totp.models import TOTPDevice
+from django_otp.plugins.otp_totp.admin import TOTPDeviceAdmin
+
+
+class OTPAdmin(OTPAdminSite):
+    pass
+
+
+
+
+admin_site = OTPAdmin(name='OTPAdmin')
+admin_site.register(User)
+admin_site.register(TOTPDevice,TOTPDeviceAdmin)
+
 
 urlpatterns = [
     path('', include('chain.urls' )),
     path('website/', include('website_app.urls' )),
-    path('user/', include('user_app.urls' )),
+    path('account/', include('account_app.urls' )),
     path('article/', include('article_app.urls' )),
     path('clinic/', include('clinic_app.urls' )),
-    path('admin/', admin.site.urls),
+    path('admin/', admin_site.urls),
     path('select2/', include("django_select2.urls")),
     path('create_patient/', PatientCreateView.as_view(), name='create_patient'),
     path("__debug__/", include("debug_toolbar.urls")),

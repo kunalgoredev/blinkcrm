@@ -1,6 +1,7 @@
  {% load static %}
  
  <!-- Header START -->
+ {% if user.is_authenticated %}
  <div class="header">
     <div class="logo logo-dark">
         <a href="index.html">
@@ -33,6 +34,15 @@
             </li>
         </ul>
         <ul class="nav-right">
+            
+            
+            {% if user.is_authenticated %}
+            <button class="btn btn-secondary m-r-5"><a style="text-emphasis-color: white;" href="{% url 'account_app:logout' %}">Logout</a></button>
+            {%else%}
+            <button class="btn btn-primary m-r-5" ><a href="{% url 'account_app:login' %}">Login</a></button>
+            {% endif %}
+                
+            
             <li class="dropdown dropdown-animated scale-left">
                 <a href="javascript:void(0);" data-toggle="dropdown">
                     <i class="anticon anticon-bell notification-badge"></i>
@@ -142,11 +152,11 @@
                             <i class="anticon font-size-10 anticon-right"></i>
                         </div>
                     </a>
-                    <a href="javascript:void(0);" class="dropdown-item d-block p-h-15 p-v-10">
+                    <a href="{% url 'account_app:logout' %}" class="dropdown-item d-block p-h-15 p-v-10">
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
                                 <i class="anticon opacity-04 font-size-16 anticon-logout"></i>
-                                <span class="m-l-10">Logout</span>
+                                <span class="m-l-10" >Logout</span>
                             </div>
                             <i class="anticon font-size-10 anticon-right"></i>
                         </div>
@@ -162,3 +172,4 @@
     </div>
 </div>    
 <!-- Header END -->
+{% endif %}

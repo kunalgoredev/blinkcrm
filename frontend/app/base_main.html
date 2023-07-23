@@ -11,19 +11,27 @@
         <div class="layout">
            
             {% include 'base_header.html' %}
-
+       
             {% include 'base_sidenavbar.html' %}
-
+       
             <!-- Page Container START -->
             <div class="page-container">
                 
                 <div class="main-content">
                     <!-- <div class="row">
-                        <div class="col-md-8 col-lg-3"> -->
-                {% block page_content %}
+                
+                    <div class="col-md-8 col-lg-3"> -->
+            
+                        {% include 'base_messages.html' %}    
+                
+                        {% block page_content %}
                     
+
+
+
+
                 {% endblock page_content %}
-                    
+               
 
                 <!-- Content Wrapper START -->
 <!--                
@@ -303,7 +311,7 @@
                 <!-- Footer START -->
                 <footer class="footer">
                     <div class="footer-content justify-content-between">
-                        <p class="m-b-9">Copyright © 2019 Theme_Nate. All rights reserved.</p>
+                        <p class="m-b-9">Copyright © 2023 Blink Stacks. All rights reserved.</p>
                         <span>
                             <a href="" class="text-gray m-r-15">Term &amp; Conditions</a>
                             <a href="" class="text-gray">Privacy &amp; Policy</a>
