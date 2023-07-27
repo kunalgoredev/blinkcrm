@@ -36,11 +36,12 @@ admin_site.register(TOTPDevice,TOTPDeviceAdmin)
 
 
 urlpatterns = [
-    path('', include('chain.urls' )),
+    path('', include('core_app.urls' )),
     path('website/', include('website_app.urls' )),
     path('account/', include('account_app.urls' )),
     path('article/', include('article_app.urls' )),
     path('clinic/', include('clinic_app.urls' )),
+    path('writer/', include('writers_app.urls' )),
     path('admin/', admin_site.urls),
     path('select2/', include("django_select2.urls")),
     path('create_patient/', PatientCreateView.as_view(), name='create_patient'),

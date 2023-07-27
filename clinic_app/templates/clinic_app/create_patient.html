@@ -14,10 +14,7 @@
         {{ form.media.css }}
        
 
-        {{form.provider|as_crispy_field}}
-        {{form.nurse|as_crispy_field}}
-        {{form.patient_name|as_crispy_field}}
-
+      {{form|crispy}}
        
 
 

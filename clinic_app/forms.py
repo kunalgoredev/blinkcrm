@@ -11,10 +11,18 @@ from .models import *
 
 class CreatePatientForm(forms.ModelForm):
 
+
+    
+    class Meta:
+        model = Patient
+        fields = ['patient_name']
+
+
     provider = forms.ModelChoiceField(
         queryset=Provider.objects.all(),
         label="Provider",
         widget=ModelSelect2Widget(
+            attrs={"cols": 80, "rows": 20},
             model=Provider,
             search_fields=['provider_name__icontains'],
         )
@@ -31,11 +39,6 @@ class CreatePatientForm(forms.ModelForm):
             
         )
     )
-    
-    class Meta:
-        model = Patient
-        fields = '__all__'
-
 # class OLDCreatePatientForm(forms.ModelForm):
 
     
