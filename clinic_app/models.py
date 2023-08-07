@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.encoding import force_str
 
 # Create your models here.
 class Clinic(models.Model):
@@ -10,12 +11,18 @@ class Clinic(models.Model):
         return self.clinic_name
 
 
+# class ProviderManager(models.Manager):
+#     def as_choices(self):
+#         for provider in self.all():
+#             yield(provider.uid, force_str(provider))
+
 class Provider(models.Model):
     provider_name = models.CharField(max_length=100, null=True, blank=True)
     provider_edu = models.CharField(max_length=100, null=True, blank=True)
     provider_address = models.CharField(max_length=100, null=True, blank=True)
     works_for_clinic = models.ForeignKey(Clinic, on_delete=models.PROTECT, blank=True, null=True)
 
+    # objects = ProviderManager()
 
     def __str__(self):
         return self.provider_name

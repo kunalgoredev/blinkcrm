@@ -10,7 +10,7 @@ class Article(BaseModel):
 
     article_name = models.CharField(max_length=150, blank=True,null=True)
     main_keyword = models.CharField(max_length=200, blank=True, null=True)
-    sub_keywords = models.TextField(max_length=2000, blank=True, null=True)
+    sub_keywords = models.TextField(max_length=20000, blank=True, null=True)
     writer_alloted = models.ForeignKey(Writer, on_delete=models.SET_NULL, null=True, blank=True)
 
     class ArticleStatus(models.TextChoices):

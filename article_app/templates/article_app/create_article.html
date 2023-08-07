@@ -15,13 +15,12 @@
       <div class="form-group">
         {% csrf_token %}
 
-        {{ website.as_p }}
+      
 
         
 
-        {{article|crispy}}
-        {{website}}
-        {{website|crispy}}
+        {{form|crispy}}
+    
       
         
     </div>

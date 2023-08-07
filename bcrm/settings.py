@@ -25,10 +25,7 @@ SECRET_KEY = 'django-insecure-hgevwqk8d!m%))4@fb^#wrjzag(7q_en8)*_!&qs+cm56a63(%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    '127.0.0.1:6379',
-    'localhost',
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -54,6 +51,7 @@ INSTALLED_APPS = [
     'clinic_app',
     'article_app',
     'chain',
+    'review',
     
     
     'crispy_forms',
@@ -63,6 +61,13 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_otp',
     'django_otp.plugins.otp_totp',
+    
+    
+    # API related apps
+    'rest_framework',
+    'corsheaders',
+    'django_filters',
+     'select2',
     
 
 
@@ -108,6 +113,11 @@ MIDDLEWARE = [
     
     'auditlog.middleware.AuditlogMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+
+
+    ### API middleware
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 
     
 ]

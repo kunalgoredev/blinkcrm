@@ -2,10 +2,51 @@ from django.shortcuts import render
 from django.views.generic import ListView, UpdateView, CreateView
 from . models import *
 from.forms import *
+from rest_framework.decorators import api_view
+from .serializers import WebsiteSerializer
+from rest_framework.response import Response
+
 # Create your views here.
 
 
 
+
+@api_view(['GET'])
+def getAllWebsites(request):
+    website = Website.objects.all()
+
+    serializer = WebsiteSerializer(website, many=False)
+    return Response(serializer.data)
+
+
+
+@api_view(['GET'])
+def getWebsite(request, id):
+    website = Website.objects.filter(id=id)
+    serializer = WebsiteSerializer(website, many=True)
+    return Response(serializer.data)
+
+
+
+@api_view(['POST'])
+def newWebsite(request):
+    
+    data = request.data
+    website = Website.objects.create(**data)
+    serializer = WebsiteSerializer(website, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['PUT'])
+def updateWebsite(request, id):
+    website = Website.objects.filter(id=id)
+
+    website.website_name = request.data['website_name']
+
+    website.save()
+
+    serializer = WebsiteSerializer(website, many=True)
+    return Response(serializer.data)
 
 
 class WebsiteListView(ListView):

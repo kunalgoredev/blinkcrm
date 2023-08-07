@@ -4,22 +4,30 @@ from django_select2.forms import (
     HeavySelect2MultipleWidget, HeavySelect2Widget, ModelSelect2TagWidget,
     ModelSelect2Widget, Select2Widget
 )
+from requests import Request
 from .models import *
 
-
+import select2.fields
+import select2.models
 
 
 class CreatePatientForm(forms.ModelForm):
 
+    # provider = select2.fields.ChoiceField(
+    #     choices=Provider.objects.as_choices(),
+    #     overlay="Choose an provider...")
 
     
     class Meta:
         model = Patient
-        fields = ['patient_name']
+        fields = '__all__' 
+        # ['patient_name', 'provider']
 
-
+    qs = Provider.objects.filter()
+    
     provider = forms.ModelChoiceField(
         queryset=Provider.objects.all(),
+        # initial={"hello Dolly"},
         label="Provider",
         widget=ModelSelect2Widget(
             attrs={"cols": 80, "rows": 20},
@@ -39,6 +47,59 @@ class CreatePatientForm(forms.ModelForm):
             
         )
     )
+
+
+
+
+
+class UpdatePatientForm(forms.ModelForm):
+
+    # provider = select2.fields.ChoiceField(
+    #     choices=Provider.objects.as_choices(),
+    #     overlay="Choose an provider...")
+
+    
+    class Meta:
+        model = Patient
+        fields = '__all__' 
+        # ['patient_name', 'provider']
+
+    qs = Provider.objects.filter()
+    
+    provider = forms.ModelChoiceField(
+        queryset=Provider.objects.all(),
+        # initial={"hello Dolly"},
+        label="Provider",
+        widget=ModelSelect2Widget(
+            attrs={"cols": 80, "rows": 20},
+            model=Provider,
+            search_fields=['provider_name__icontains'],
+        )
+    )
+
+    nurse = forms.ModelChoiceField(
+        queryset=Nurse.objects.all(),
+        label="Nurse",
+        widget=ModelSelect2Widget(
+            model=Nurse,
+            search_fields=['nurse_name__icontains'],
+            dependent_fields={'provider': 'works_for_provider'},
+            max_results=20,
+            
+        )
+    )
+
+
+
+
+
+
+
+
+
+
+
+
 # class OLDCreatePatientForm(forms.ModelForm):
 
     

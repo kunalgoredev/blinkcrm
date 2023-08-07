@@ -16,8 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from .views import *
+
+app_name='yt'
+
 
 urlpatterns = [
-   # path('', include('core_app.urls' )),
+   path('', YTListView.as_view(), name='yt_ideas'),
+   path('create/', IdeaCreateView.as_view(), name='idea_create'),
     
 ]
